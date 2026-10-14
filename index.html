@@ -173,14 +173,13 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .mv{color:var(--green);font-weight:700;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:pointer;border-radius:2px}
 .mv:hover{background:var(--okbg)}
 .fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;background:var(--btn);color:var(--btnink);border:0;border-radius:99px;padding:11px 20px;font-weight:700;font-size:.95rem;box-shadow:0 4px 16px rgba(30,40,30,.28);cursor:pointer}
-.mpanel{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--card);border-left:3px solid var(--green);z-index:25;display:flex;flex-direction:column;box-shadow:-10px 0 28px rgba(30,40,30,.22)}
-.mhead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--line)}
-.mhead h2{font-family:var(--f-display);font-weight:900;font-size:1.35rem;color:var(--green)}
+.mhost{display:flex;flex-direction:column;gap:8px}
+.mhead{display:flex;justify-content:flex-end;gap:8px}
 .mhead .acts{display:flex;gap:8px}
-.mtabs{display:flex;border-bottom:1px solid var(--line)}
+.mtabs{display:flex;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);z-index:1}
 .mtab{flex:1;background:none;border:0;border-bottom:4px solid transparent;padding:9px 6px;font-weight:700;font-size:1rem;cursor:pointer;color:var(--muted)}
 .mtab[aria-selected="true"]{color:var(--gc);border-bottom-color:var(--gc)}
-.mlist{overflow:auto;padding:12px 16px calc(28px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;min-height:0}
+.mlist{padding:4px 0 calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
 .mcard{border:1px solid var(--line);border-left:6px solid var(--gc);border-radius:4px;background:var(--card)}
 .mtitle{width:100%;text-align:left;background:none;border:0;padding:8px 12px;cursor:pointer;display:flex;flex-direction:column;gap:0}
 .mtitle b{font-size:1.2rem;color:var(--gc);font-family:var(--f-display);font-weight:900}
@@ -191,12 +190,10 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .mbody li{position:relative;padding-left:1.1em}
 .mbody li::before{content:"";position:absolute;left:.1em;top:.62em;width:.5em;height:.5em;background:var(--gc)}
 
-@media (max-width:600px){.mpanel{border-left:0;border-top:3px solid var(--green);top:12vh;width:100%;border-radius:10px 10px 0 0}}
 /* side menu */
-.shell{display:flex;gap:20px;align-items:flex-start;max-width:1440px;margin-inline:auto}
-.shell>.app{flex:1 1 0;min-width:0;max-width:1000px;margin:0}
-.side{display:none;position:fixed;z-index:30;top:0;left:0;bottom:0;width:min(420px,100%);background:var(--card);border-right:3px solid var(--green);padding:12px;padding-top:calc(12px + env(safe-area-inset-top,0px));flex-direction:column;gap:10px;box-shadow:10px 0 28px rgba(30,40,30,.22)}
+.side{display:none;position:fixed;z-index:25;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--card);border-left:3px solid var(--green);padding:12px;padding-top:calc(12px + env(safe-area-inset-top,0px));flex-direction:column;gap:10px;box-shadow:-10px 0 28px rgba(30,40,30,.22)}
 .side.open{display:flex}
+@media (max-width:600px){.side{border-left:0;border-top:3px solid var(--green);top:12vh;width:100%;border-radius:10px 10px 0 0}}
 .shead{display:flex;gap:8px;align-items:flex-start}
 .snav{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .sitem{background:var(--field);border:1px solid var(--line);border-radius:4px;padding:7px 8px;cursor:pointer;font-weight:500}
@@ -211,43 +208,10 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .mgrid .btn{width:100%;text-align:left}
 .mgrid label.sel{display:flex;flex-direction:column;gap:4px}
 .mgrid select{width:100%;background:var(--field);border:1px solid var(--line);border-radius:4px;padding:6px 8px}
-@media (min-width:1000px){
-  .side{display:flex;position:sticky;top:20px;z-index:1;flex:0 0 280px;width:280px;height:calc(100vh - 40px);border:1px solid var(--line);border-radius:6px;box-shadow:none;padding-top:12px}
-  .sclose,.fab{display:none}
-}
-body.gate .shell>.app{margin-inline:auto}
 body.gate .app{align-items:center;justify-content:center;min-height:calc(100vh - 84px)}
 body.gate .topbar{justify-content:center;text-align:center}
 body.gate .roomcard{width:min(100%,560px);align-items:center;text-align:center}
 body.gate .rform,body.gate .rankopts,body.gate .row{justify-content:center}
-
-
-/* room */
-.roomcard{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
-.roomcard h2{font-family:var(--f-display);font-size:1.25rem;color:var(--green)}
-.rform{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
-.rform label.f{display:flex;gap:8px;align-items:center;min-width:0}
-.rform input.t{width:auto;flex:0 1 190px}
-.rhead{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
-.rhead .grow{flex:1 1 10px}
-.members{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:2px solid var(--green);padding-bottom:0}
-.tab{flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:6px 14px;border:1px solid var(--line);border-bottom:0;border-radius:6px 6px 0 0;background:var(--field);color:var(--ink);font:inherit;cursor:pointer;text-align:left}
-.tab b{font-size:.95rem}
-.tab small{font-size:.74rem;color:var(--muted)}
-.tab[aria-selected="true"]{background:var(--green);border-color:var(--green);color:var(--card)}
-.tab[aria-selected="true"] small{color:var(--card);opacity:.85}
-.tab.off{border-style:dashed}
-.member{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-left:5px solid var(--line);border-radius:4px;padding:6px 10px;background:var(--field)}
-.member.on{border-left-color:var(--green);background:var(--okbg)}
-.member.off{opacity:.85;border-style:dashed}
-.mtext{min-width:0;display:flex;flex-direction:column;gap:2px}
-.mname{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.msum{font-size:.85rem;color:var(--muted);overflow-wrap:anywhere}
-.tag{font-size:.72rem;font-weight:700;padding:0 8px;border-radius:99px;border:1px solid var(--line)}
-.tag.gm{background:var(--green);color:var(--card);border-color:transparent}
-.tag.me{background:var(--card)}
-.viewing{background:var(--warnbg);color:var(--warn);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:6px}
 
 /* print / printable export */
 @page{size:A4;margin:9mm}
@@ -256,7 +220,6 @@ body.gate .rform,body.gate .rankopts,body.gate .row{justify-content:center}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{padding:0;font-size:11.5px;background:#fff}
   .side,.topbar,.bar,.chooser,.roomcard,.viewing,.toast,.modal,.step,.apply,.picker,.fab,.mpanel,.no-print{display:none!important}
-  .shell{display:block}
   .app{max-width:none;gap:0}
   fieldset.sheet{gap:0}
   .page{border:0;border-radius:0;padding:0;gap:12px;break-after:page;page-break-after:always}
@@ -288,7 +251,6 @@ body.print-view{padding:0}
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <div id="modalHost"></div>
 <button class="fab" id="menuBtn" type="button" hidden>選單</button>
-<aside class="mpanel" id="movePanel" role="dialog" aria-label="動作列表" hidden></aside>
 
 <script src="firebase-config.js"></script>
 <script>
@@ -470,8 +432,8 @@ function renderSync(){
 const side={open:false,view:null};
 const SIDE_LABEL={players:'玩家角色',moves:'動作列表',room:'房間設置',manage:'角色管理'};
 function sideViews(){
-  if(room.joined)return room.role==='player'?['players','room','manage']:['players','room'];
-  if(!roomAvailable())return ['manage'];
+  if(room.joined)return room.role==='player'?['players','moves','room','manage']:['players','moves','room'];
+  if(!roomAvailable())return ['moves','manage'];
   return [];
 }
 function closeSide(){side.open=false}
@@ -520,7 +482,7 @@ function roomView(){
 function renderSide(){
   const el=$('#side'),fab=$('#menuBtn');
   if(gate()){el.hidden=true;fab.hidden=true;return}
-  el.hidden=false;fab.hidden=false;
+  el.hidden=false;fab.hidden=side.open;
   const av=sideViews();
   if(!av.includes(side.view))side.view=av[0];
   const v=side.view;
@@ -528,14 +490,13 @@ function renderSide(){
   el.classList.toggle('open',side.open);
   el.textContent='';
   el.append(h('div',{class:'shead'},
-    h('nav',{class:'snav','aria-label':'選單'},['players','moves','room','manage'].filter(k=>k==='moves'||av.includes(k)).map(k=>h('button',{type:'button',class:'sitem','aria-current':k===v&&k!=='moves'?'true':null,onclick:()=>{
-      if(k==='moves'){openMoves();return}
+    h('nav',{class:'snav','aria-label':'選單'},av.map(k=>h('button',{type:'button',class:'sitem','aria-current':k===v?'true':null,onclick:()=>{
       side.view=k;confirmDel=false;
       if(k==='manage'&&viewing){backToMine()}else renderSide();
     }},SIDE_LABEL[k]))),
     h('button',{type:'button',class:'btn sclose','aria-label':'關閉選單',onclick:()=>{closeSide();renderSide()}},'關閉')));
   const body=h('div',{class:'sbody',id:'sbody'},
-    v==='players'?playersView():v==='room'?roomView():manageView());
+    v==='players'?playersView():v==='moves'?movesView():v==='room'?roomView():manageView());
   el.append(body);
   body.scrollTop=st;
 }
@@ -900,7 +861,7 @@ const MOVES=[
 ];
 const MOVE_BY_NAME={};
 MOVES.forEach(m=>{if(!MOVE_BY_NAME[m[1]])MOVE_BY_NAME[m[1]]=m});
-const moveUI={open:false,group:'day',expanded:{}};
+const moveUI={group:'day',expanded:{}};
 
 function mvLink(name){
   const go=()=>openMoves(name);
@@ -917,19 +878,14 @@ function linkify(text){
 function moveBlocks(blocks){
   return blocks.map(b=>b[0]==='ul'?h('ul',{},b[1].map(x=>h('li',{},linkify(x)))):h('p',{},linkify(b[1])));
 }
-function renderMoves(scrollKey){
-  const p=$('#movePanel');
-  if(!moveUI.open){p.hidden=true;return}
-  p.hidden=false;
-  p.textContent='';
+function movesView(){
   const gcol=(MOVE_GROUPS.find(g=>g[0]===moveUI.group)||MOVE_GROUPS[0])[2];
   const list=MOVES.filter(m=>m[0]===moveUI.group);
   const allOpen=list.every(m=>moveUI.expanded[m[0]+m[1]]);
-  p.append(h('div',{class:'mhead'},h('h2',{text:'動作列表'}),
-    h('div',{class:'acts'},
-      h('button',{type:'button',class:'btn',onclick:()=>{list.forEach(m=>{moveUI.expanded[m[0]+m[1]]=!allOpen});renderMoves()}},allOpen?'全部收合':'全部展開'),
-      h('button',{type:'button',class:'btn',id:'mvClose','aria-label':'關閉動作列表',onclick:closeMoves},'關閉'))));
-  p.append(h('div',{class:'mtabs',role:'tablist'},MOVE_GROUPS.map(g=>h('button',{type:'button',class:'mtab',role:'tab','aria-selected':moveUI.group===g[0]?'true':'false',style:'--gc:'+g[2],onclick:()=>{moveUI.group=g[0];renderMoves()}},g[1]))));
+  const host=h('div',{class:'mhost'});
+  host.append(h('div',{class:'mhead'},
+    h('button',{type:'button',class:'btn',onclick:()=>{list.forEach(m=>{moveUI.expanded[m[0]+m[1]]=!allOpen});renderMoves()}},allOpen?'全部收合':'全部展開')));
+  host.append(h('div',{class:'mtabs',role:'tablist'},MOVE_GROUPS.map(g=>h('button',{type:'button',class:'mtab',role:'tab','aria-selected':moveUI.group===g[0]?'true':'false',style:'--gc:'+g[2],onclick:()=>{moveUI.group=g[0];renderMoves()}},g[1]))));
   const box=h('div',{class:'mlist',id:'mlist',style:'--gc:'+gcol});
   list.forEach(m=>{
     const key=m[0]+m[1],open=!!moveUI.expanded[key];
@@ -938,21 +894,20 @@ function renderMoves(scrollKey){
     if(open)card.append(h('div',{class:'mbody'},moveBlocks(m[4])));
     box.append(card);
   });
-  p.append(box);
+  host.append(box);
+  return host;
+}
+function renderMoves(scrollKey){
+  side.view='moves';renderSide();
   if(scrollKey){const el=$('#mv-'+scrollKey);if(el&&el.scrollIntoView)el.scrollIntoView({block:'nearest'})}
 }
 function openMoves(name){
   if(gate())return;
-  side.open=false;renderSide();
-  if(name){
-    const m=MOVE_BY_NAME[name];
-    if(m){moveUI.group=m[0];moveUI.expanded[m[0]+m[1]]=true}
-    moveUI.open=true;renderMoves(m?m[0]+m[1]:null);
-  }else{moveUI.open=true;renderMoves()}
-  const c=$('#mvClose');if(c&&!name)c.focus();
+  const m=name?MOVE_BY_NAME[name]:null;
+  if(m){moveUI.group=m[0];moveUI.expanded[m[0]+m[1]]=true}
+  side.open=true;renderMoves(m?m[0]+m[1]:null);
 }
-function closeMoves(){moveUI.open=false;renderMoves();}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(moveUI.open)closeMoves();else if(side.open){side.open=false;renderSide()}}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&side.open){side.open=false;renderSide()}});
 $('#menuBtn').addEventListener('click',()=>{side.open=true;renderSide()});
 
 /* ================= 房間（Firebase Realtime Database） ================= */
