@@ -173,14 +173,13 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .mv{color:var(--green);font-weight:700;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:pointer;border-radius:2px}
 .mv:hover{background:var(--okbg)}
 .fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;background:var(--btn);color:var(--btnink);border:0;border-radius:99px;padding:11px 20px;font-weight:700;font-size:.95rem;box-shadow:0 4px 16px rgba(30,40,30,.28);cursor:pointer}
-.mpanel{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--card);border-left:3px solid var(--green);z-index:25;display:flex;flex-direction:column;box-shadow:-10px 0 28px rgba(30,40,30,.22)}
-.mhead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--line)}
-.mhead h2{font-family:var(--f-display);font-weight:900;font-size:1.35rem;color:var(--green)}
+.mhost{display:flex;flex-direction:column;gap:8px}
+.mhead{display:flex;justify-content:flex-end;gap:8px}
 .mhead .acts{display:flex;gap:8px}
-.mtabs{display:flex;border-bottom:1px solid var(--line)}
+.mtabs{display:flex;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);z-index:1}
 .mtab{flex:1;background:none;border:0;border-bottom:4px solid transparent;padding:9px 6px;font-weight:700;font-size:1rem;cursor:pointer;color:var(--muted)}
 .mtab[aria-selected="true"]{color:var(--gc);border-bottom-color:var(--gc)}
-.mlist{overflow:auto;padding:12px 16px calc(28px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;min-height:0}
+.mlist{padding:4px 0 calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
 .mcard{border:1px solid var(--line);border-left:6px solid var(--gc);border-radius:4px;background:var(--card)}
 .mtitle{width:100%;text-align:left;background:none;border:0;padding:8px 12px;cursor:pointer;display:flex;flex-direction:column;gap:0}
 .mtitle b{font-size:1.2rem;color:var(--gc);font-family:var(--f-display);font-weight:900}
@@ -190,7 +189,32 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .mbody ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px}
 .mbody li{position:relative;padding-left:1.1em}
 .mbody li::before{content:"";position:absolute;left:.1em;top:.62em;width:.5em;height:.5em;background:var(--gc)}
-@media (max-width:600px){.mpanel{border-left:0;border-top:3px solid var(--green);top:12vh;width:100%;border-radius:10px 10px 0 0}}
+
+/* side menu */
+.shell{display:flex;gap:20px;align-items:flex-start;max-width:1440px;margin-inline:auto}
+.shell>.app{flex:1 1 0;min-width:0;max-width:1000px;margin:0}
+.side{display:none;position:fixed;z-index:30;top:0;left:0;bottom:0;width:min(420px,100%);background:var(--card);border-right:3px solid var(--green);padding:12px;padding-top:calc(12px + env(safe-area-inset-top,0px));flex-direction:column;gap:10px;box-shadow:10px 0 28px rgba(30,40,30,.22)}
+.side.open{display:flex}
+.shead{display:flex;gap:8px;align-items:flex-start}
+.snav{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sitem{background:var(--field);border:1px solid var(--line);border-radius:4px;padding:7px 8px;cursor:pointer;font-weight:500}
+.sitem[aria-current="true"]{background:var(--green);border-color:var(--green);color:var(--card);font-weight:700}
+.sbody{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:8px}
+.pitem{display:flex;flex-direction:column;align-items:flex-start;gap:0;text-align:left;width:100%;border:1px solid var(--line);border-left:5px solid var(--line);border-radius:4px;background:var(--field);padding:6px 10px;cursor:pointer}
+.pitem small{font-size:.78rem;color:var(--muted)}
+.pitem[aria-current="true"]{border-left-color:var(--green);background:var(--okbg)}
+.pitem.off{border-style:dashed}
+.rcode{font-family:var(--f-label);font-weight:700;font-size:1.8rem;letter-spacing:.12em;color:var(--green)}
+.mgrid{display:flex;flex-direction:column;gap:8px}
+.mgrid .btn{width:100%;text-align:left}
+.mgrid label.sel{display:flex;flex-direction:column;gap:4px}
+.mgrid select{width:100%;background:var(--field);border:1px solid var(--line);border-radius:4px;padding:6px 8px}
+@media (min-width:1000px){
+  .side{display:flex;position:sticky;top:20px;z-index:1;flex:0 0 280px;width:280px;height:calc(100vh - 40px);border:1px solid var(--line);border-radius:6px;box-shadow:none;padding-top:12px}
+  .side.wide{flex-basis:360px;width:360px}
+  .sclose,.fab{display:none}
+}
+@media (min-width:1200px){.side.wide{flex-basis:440px;width:440px}}
 
 
 /* room */
@@ -202,6 +226,13 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .rhead{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
 .rhead .grow{flex:1 1 10px}
 .members{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:2px solid var(--green);padding-bottom:0}
+.tab{flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:6px 14px;border:1px solid var(--line);border-bottom:0;border-radius:6px 6px 0 0;background:var(--field);color:var(--ink);font:inherit;cursor:pointer;text-align:left}
+.tab b{font-size:.95rem}
+.tab small{font-size:.74rem;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--green);border-color:var(--green);color:var(--card)}
+.tab[aria-selected="true"] small{color:var(--card);opacity:.85}
+.tab.off{border-style:dashed}
 .member{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-left:5px solid var(--line);border-radius:4px;padding:6px 10px;background:var(--field)}
 .member.on{border-left-color:var(--green);background:var(--okbg)}
 .member.off{opacity:.85;border-style:dashed}
@@ -219,7 +250,8 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
   :root:root:root{--bg:#fff;--card:#fff;--ink:#111;--muted:#444;--green:#2f5d3a;--rule:#3d5f34;--red:#a63a2e;--line:#999;--field:#fff;--plate:#fff;--img-filter:none;color-scheme:light}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{padding:0;font-size:11.5px;background:#fff}
-  .topbar,.bar,.chooser,.roomcard,.viewing,.toast,.modal,.step,.apply,.picker,.fab,.mpanel,.no-print{display:none!important}
+  .side,.topbar,.bar,.chooser,.roomcard,.viewing,.toast,.modal,.step,.apply,.picker,.fab,.mpanel,.no-print{display:none!important}
+  .shell{display:block}
   .app{max-width:none;gap:0}
   fieldset.sheet{gap:0}
   .page{border:0;border-radius:0;padding:0;gap:12px;break-after:page;page-break-after:always}
@@ -235,21 +267,22 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 body.print-view{padding:0}
 </style>
 
-<div class="app">
-  <header class="topbar">
-    <div class="brand"><div class="ru">НОЧНЫЕ ВЕДЬМЫ</div><h1>夜襲魔女 角色卡</h1></div>
-    <div class="sync" id="sync" role="status"></div>
-  </header>
-  <div class="bar" id="bar"></div>
-  <div id="room" class="roomcard" hidden></div>
-  <div id="viewing" class="viewing" hidden></div>
-  <div id="chooser" class="chooser" hidden></div>
-  <main id="sheetWrap"></main>
+<div class="shell">
+  <aside id="side" class="side" hidden></aside>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><div class="ru">НОЧНЫЕ ВЕДЬМЫ</div><h1>夜襲魔女 角色卡</h1></div>
+      <div class="sync" id="sync" role="status" hidden></div>
+    </header>
+    <div id="room" class="roomcard" hidden></div>
+    <div id="viewing" class="viewing" hidden></div>
+    <div id="chooser" class="chooser" hidden></div>
+    <main id="sheetWrap"></main>
+  </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <div id="modalHost"></div>
-<button class="fab" id="moveFab" type="button">動作速查</button>
-<aside class="mpanel" id="movePanel" role="dialog" aria-label="動作速查" hidden></aside>
+<button class="fab" id="menuBtn" type="button" hidden>選單</button>
 
 <script src="firebase-config.js"></script>
 <script>
@@ -423,56 +456,101 @@ function touch(){
 
 /* ================= 渲染：上方區塊 ================= */
 function renderSync(){
-  const e=$('#sync');e.className='sync';
-  e.textContent='自動存在這個瀏覽器，換裝置前請按「儲存角色卡」';
-  e.title='清除瀏覽器資料或換裝置就會消失，請把角色卡下載成檔案保存';
+  const e=$('#sync');
+  if(!room.joined){e.hidden=true;return}
+  e.hidden=false;e.className='sync'+(room.connected?' ok':' warn');
+  e.textContent='房間 '+room.code+'・'+(room.connected?'已連線・'+Object.keys(room.peers).length+' 人':'重新連線中…');
 }
-function renderBar(){
-  const b=$('#bar');b.textContent='';
+const side={open:false,view:null};
+const SIDE_LABEL={players:'玩家角色',moves:'動作列表',room:'房間設置',manage:'角色管理'};
+function sideViews(){
+  if(room.joined)return room.role==='player'?['players','moves','room','manage']:['players','moves','room'];
+  if(!roomAvailable())return ['moves','manage'];
+  return [];
+}
+function closeSide(){side.open=false}
+function renderBar(){renderSide()}
+function manageView(){
   const ids=Object.keys(data.chars).sort((x,y)=>(data.chars[y].updated||0)-(data.chars[x].updated||0));
-  if(viewing){b.hidden=true;return}
-  b.hidden=false;
+  const g=h('div',{class:'mgrid'});
+  if(ids.length>1)g.append(h('label',{class:'sel'},'角色',h('select',{id:'charSel','aria-label':'選擇角色',onchange:e=>{data.current=e.target.value;confirmDel=false;showChooser=false;saveLocal();closeSide();refreshAll()}},
+    ids.map(id=>{const c=data.chars[id];return h('option',{value:id,selected:id===data.current,text:(c.name||'未命名')+'・'+PB[c.pb].zh})}))));
+  g.append(h('button',{type:'button',class:'btn primary',onclick:()=>{showChooser=!showChooser;closeSide();refreshAll();window.scrollTo(0,0)}},'＋ 新角色'));
   if(ids.length){
-    const sel=h('select',{id:'charSel','aria-label':'選擇角色',onchange:e=>{data.current=e.target.value;confirmDel=false;showChooser=false;saveLocal();refreshAll()}},
-      ids.map(id=>{const c=data.chars[id];return h('option',{value:id,selected:id===data.current,text:(c.name||'未命名')+'・'+PB[c.pb].zh})}));
-    b.append(h('label',{class:'sel'},'角色',sel));
-  }
-  b.append(h('button',{type:'button',class:'btn primary',onclick:()=>{showChooser=!showChooser;renderChooser();}},'＋ 新角色'));
-  b.append(h('button',{type:'button',class:'btn',onclick:()=>openMoves()},'動作速查'));
-  if(roomAvailable())b.append(h('button',{type:'button',class:'btn'+(room.joined?' primary':''),id:'roomBtn',onclick:()=>{if(room.joined){const e=$('#room');if(e&&e.scrollIntoView)e.scrollIntoView({block:'nearest'});return}room.open=!room.open;room.msg='';renderRoom();if(room.open){const i=$('#roomCode');if(i)i.focus()}}},room.joined?'房間 '+room.code:'房間'));
-  b.append(h('span',{class:'grow'}));
-  if(ids.length){
-    b.append(h('button',{type:'button',class:'btn',onclick:exportJson},'儲存角色卡'));
-    b.append(importControls());
-    b.append(h('button',{type:'button',class:'btn',onclick:exportPrint},'下載列印版'));
-    if(!confirmDel)b.append(h('button',{type:'button',class:'btn danger',onclick:()=>{confirmDel=true;renderBar()}},'刪除'));
-    else{
-      b.append(h('span',{class:'hint'},'確定刪除這張角色卡？'));
-      b.append(h('button',{type:'button',class:'btn danger',onclick:delChar},'確定刪除'));
-      b.append(h('button',{type:'button',class:'btn',onclick:()=>{confirmDel=false;renderBar()}},'取消'));
-    }
-  }else{
-    b.append(importControls());
-  }
+    g.append(h('button',{type:'button',class:'btn',onclick:exportJson},'儲存角色卡'));
+    g.append(importControls());
+    g.append(h('button',{type:'button',class:'btn',onclick:exportPrint},'下載列印版'));
+    if(!confirmDel)g.append(h('button',{type:'button',class:'btn danger',onclick:()=>{confirmDel=true;renderSide()}},'刪除'));
+    else g.append(h('span',{class:'hint'},'確定刪除這張角色卡？'),
+      h('button',{type:'button',class:'btn danger',onclick:delChar},'確定刪除'),
+      h('button',{type:'button',class:'btn',onclick:()=>{confirmDel=false;renderSide()}},'取消'));
+  }else g.append(importControls());
+  return g;
+}
+function playersView(){
+  const g=h('div',{class:'mgrid'});
+  tabIds().forEach(id=>{
+    const me=id===room.pid;
+    const p=me?{name:room.name}:entryOf(id);
+    if(!p)return;
+    const c=me?ownChar():peerChar(p.card);
+    const gone=!me&&!room.peers[id];
+    const on=me?!viewing:viewing===id;
+    const sub=(me?'你':(p.name||'玩家'))+(c?'・'+PB[c.pb].zh:'・尚未建立')+(gone?'・已離開':'');
+    g.append(h('button',{type:'button',class:'pitem'+(gone?' off':''),'aria-current':on?'true':null,onclick:()=>{closeSide();if(me)backToMine();else viewPeer(id)}},
+      h('b',{text:(c&&c.name)||(me?'我的角色卡':(p.name||'玩家'))}),h('small',{text:sub})));
+  });
+  return g;
+}
+function roomView(){
+  const t=room.code;
+  return h('div',{class:'mgrid'},
+    h('div',{class:'rcode',text:t}),
+    room.role==='gm'?h('div',{},h('span',{class:'tag gm',text:'GM'})):null,
+    h('button',{type:'button',class:'btn',onclick:()=>{try{navigator.clipboard.writeText(t).then(()=>toast('已複製房間代碼'),()=>toast('代碼：'+t))}catch(e){toast('代碼：'+t)}}},'複製代碼'),
+    h('button',{type:'button',class:'btn danger',onclick:leaveRoom},'離開房間'),
+    room.msg?h('p',{class:'note warn',role:'alert',text:room.msg}):null);
+}
+function renderSide(){
+  const el=$('#side'),fab=$('#menuBtn');
+  if(gate()){el.hidden=true;fab.hidden=true;return}
+  el.hidden=false;fab.hidden=false;
+  const av=sideViews();
+  if(!av.includes(side.view))side.view=av[0];
+  const v=side.view;
+  const old=$('#sbody');const st=old?old.scrollTop:0;
+  el.classList.toggle('open',side.open);
+  el.classList.toggle('wide',v==='moves');
+  el.textContent='';
+  el.append(h('div',{class:'shead'},
+    h('nav',{class:'snav','aria-label':'選單'},av.map(k=>h('button',{type:'button',class:'sitem','aria-current':k===v?'true':null,onclick:()=>{
+      side.view=k;confirmDel=false;
+      if(k==='manage'&&viewing){backToMine()}else renderSide();
+    }},SIDE_LABEL[k]))),
+    h('button',{type:'button',class:'btn sclose','aria-label':'關閉選單',onclick:()=>{closeSide();renderSide()}},'關閉')));
+  const body=h('div',{class:'sbody',id:'sbody'},
+    v==='players'?playersView():v==='moves'?movesView():v==='room'?roomView():manageView());
+  el.append(body);
+  body.scrollTop=st;
 }
 function renderChooser(){
   const el=$('#chooser');
   const ids=Object.keys(data.chars);
-  const show=showChooser||(!ids.length&&!viewing&&!(room.joined&&room.role==='gm'));
+  const show=!gate()&&(showChooser||(!ids.length&&!viewing&&!(room.joined&&room.role==='gm')));
   el.hidden=!show;if(!show)return;
   el.textContent='';
   el.append(h('h2',{text:ids.length?'新增角色':'選擇劇本'}));
-  el.append(h('p',{class:'hint',text:'每個劇本對應一種鳥類，選好之後再填軍階、名字與外貌。資料會自動存在這個瀏覽器；想帶走或備份，請按「儲存角色卡」下載檔案。'}));
   el.append(h('div',{class:'cards'},PB_ORDER.map(k=>h('button',{type:'button',class:'pcard',onclick:()=>{
     const c=newChar(k);data.chars[c.id]=c;data.current=c.id;showChooser=false;confirmDel=false;saveLocal();refreshAll();
   }},h('b',{text:PB[k].zh}),h('span',{text:PB[k].flavor})))));
+  if(!ids.length)el.append(h('div',{class:'row',style:'margin-top:12px'},importControls()));
 }
 /* ================= 渲染：角色卡 ================= */
 function editing(){const a=document.activeElement;return !!(a&&a.closest&&a.closest('#sheetWrap')&&(a.tagName==='INPUT'&&(a.type==='text'||!a.type)))}
 function refreshAll(){
   if(editing()){pendingRefresh=true;return}
   pendingRefresh=false;
-  renderSync();renderBar();renderRoom();renderViewing();renderChooser();renderSheet();scheduleRoom();
+  renderRoom();renderViewing();renderChooser();renderSheet();scheduleRoom();
 }
 document.addEventListener('focusout',()=>{setTimeout(()=>{if(pendingRefresh&&!editing())refreshAll()},50)});
 
@@ -485,7 +563,9 @@ function countMedals(c){const keys=PB[c.pb].medals;return keys.filter(k=>c.medal
 function renderSheet(){
   const wrap=$('#sheetWrap');wrap.textContent='';
   const c=cur();
+  if(gate())return;
   if(!c){
+    if(viewing||(room.joined&&room.role==='gm'))return;
     if(!Object.keys(data.chars).length)return;
     wrap.append(h('p',{class:'empty',text:'找不到這張角色卡。'}));return;
   }
@@ -677,7 +757,7 @@ async function saveFile(filename,content,mime){
   }catch(e){return 'fail'}
 }
 async function exportJson(){
-  const c=cur();if(!c)return;
+  const c=data.chars[data.current];if(!c||viewing)return;
   const text=JSON.stringify({app:'nw-sheet',v:1,char:c},null,1);
   const r=await saveFile((c.name||PB[c.pb].zh)+'-夜襲魔女角色卡.json',text,'application/json');
   if(r==='ok')toast('已儲存角色卡檔案。下次用「讀取角色卡」開啟它。');
@@ -708,7 +788,7 @@ function importControls(){
     h('button',{type:'button',class:'btn',onclick:()=>modal('貼上角色卡資料','',{placeholder:'把角色卡的文字貼在這裡',submitLabel:'讀取',onSubmit:importFromText})},'貼上文字讀取'));
 }
 async function exportPrint(){
-  const c=cur();if(!c)return;
+  const c=data.chars[data.current];if(!c||viewing)return;
   const live=[...$('#sheetWrap').querySelectorAll('input,select')];
   const clone=$('#sheetWrap').cloneNode(true);
   const dst=[...clone.querySelectorAll('input,select')];
@@ -814,7 +894,7 @@ const MOVES=[
 ];
 const MOVE_BY_NAME={};
 MOVES.forEach(m=>{if(!MOVE_BY_NAME[m[1]])MOVE_BY_NAME[m[1]]=m});
-const moveUI={open:false,group:'day',expanded:{}};
+const moveUI={group:'day',expanded:{}};
 
 function mvLink(name){
   const go=()=>openMoves(name);
@@ -831,19 +911,14 @@ function linkify(text){
 function moveBlocks(blocks){
   return blocks.map(b=>b[0]==='ul'?h('ul',{},b[1].map(x=>h('li',{},linkify(x)))):h('p',{},linkify(b[1])));
 }
-function renderMoves(scrollKey){
-  const p=$('#movePanel');
-  if(!moveUI.open){p.hidden=true;$('#moveFab').hidden=false;return}
-  p.hidden=false;$('#moveFab').hidden=true;
-  p.textContent='';
+function movesView(){
   const gcol=(MOVE_GROUPS.find(g=>g[0]===moveUI.group)||MOVE_GROUPS[0])[2];
   const list=MOVES.filter(m=>m[0]===moveUI.group);
   const allOpen=list.every(m=>moveUI.expanded[m[0]+m[1]]);
-  p.append(h('div',{class:'mhead'},h('h2',{text:'動作速查'}),
-    h('div',{class:'acts'},
-      h('button',{type:'button',class:'btn',onclick:()=>{list.forEach(m=>{moveUI.expanded[m[0]+m[1]]=!allOpen});renderMoves()}},allOpen?'全部收合':'全部展開'),
-      h('button',{type:'button',class:'btn',id:'mvClose','aria-label':'關閉動作速查',onclick:closeMoves},'關閉'))));
-  p.append(h('div',{class:'mtabs',role:'tablist'},MOVE_GROUPS.map(g=>h('button',{type:'button',class:'mtab',role:'tab','aria-selected':moveUI.group===g[0]?'true':'false',style:'--gc:'+g[2],onclick:()=>{moveUI.group=g[0];renderMoves()}},g[1]))));
+  const host=h('div',{class:'mhost'});
+  host.append(h('div',{class:'mhead'},
+    h('button',{type:'button',class:'btn',onclick:()=>{list.forEach(m=>{moveUI.expanded[m[0]+m[1]]=!allOpen});renderMoves()}},allOpen?'全部收合':'全部展開')));
+  host.append(h('div',{class:'mtabs',role:'tablist'},MOVE_GROUPS.map(g=>h('button',{type:'button',class:'mtab',role:'tab','aria-selected':moveUI.group===g[0]?'true':'false',style:'--gc:'+g[2],onclick:()=>{moveUI.group=g[0];renderMoves()}},g[1]))));
   const box=h('div',{class:'mlist',id:'mlist',style:'--gc:'+gcol});
   list.forEach(m=>{
     const key=m[0]+m[1],open=!!moveUI.expanded[key];
@@ -852,28 +927,30 @@ function renderMoves(scrollKey){
     if(open)card.append(h('div',{class:'mbody'},moveBlocks(m[4])));
     box.append(card);
   });
-  p.append(box);
+  host.append(box);
+  return host;
+}
+function renderMoves(scrollKey){
+  side.view='moves';renderSide();
   if(scrollKey){const el=$('#mv-'+scrollKey);if(el&&el.scrollIntoView)el.scrollIntoView({block:'nearest'})}
 }
 function openMoves(name){
-  if(name){
-    const m=MOVE_BY_NAME[name];
-    if(m){moveUI.group=m[0];moveUI.expanded[m[0]+m[1]]=true}
-    moveUI.open=true;renderMoves(m?m[0]+m[1]:null);
-  }else{moveUI.open=true;renderMoves()}
-  const c=$('#mvClose');if(c&&!name)c.focus();
+  if(gate())return;
+  const m=name?MOVE_BY_NAME[name]:null;
+  if(m){moveUI.group=m[0];moveUI.expanded[m[0]+m[1]]=true}
+  side.open=true;renderMoves(m?m[0]+m[1]:null);
 }
-function closeMoves(){moveUI.open=false;renderMoves();const f=$('#moveFab');if(f)f.focus()}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&moveUI.open)closeMoves()});
-$('#moveFab').addEventListener('click',()=>openMoves());
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&side.open){side.open=false;renderSide()}});
+$('#menuBtn').addEventListener('click',()=>{side.open=true;renderSide()});
 
 /* ================= 房間（Firebase Realtime Database） ================= */
 /* 設定放在另一個小檔 firebase-config.js；沒有設定時，整個房間功能不會出現。 */
 const FB_VER='10.12.2';
-const room={open:false,joined:false,busy:false,connected:false,code:'',name:'',role:'player',pid:'',peers:{},ghosts:{},prev:{},refs:null,timer:null,lastSent:'',msg:'',form:{code:'',name:'',role:'player'}};
+const room={joined:false,busy:false,connected:false,code:'',name:'',role:'player',pid:'',peers:{},ghosts:{},prev:{},refs:null,timer:null,lastSent:'',msg:'',form:{code:'',name:'',role:'player'}};
 const peerCache={};
 function fbCfg(){const c=window.NW_FIREBASE_CONFIG;return c&&typeof c.databaseURL==='string'&&/^https:\/\//.test(c.databaseURL)?c:null}
 function roomAvailable(){return !!fbCfg()}
+function gate(){return roomAvailable()&&!room.joined}
 function ownChar(){return data.chars[data.current]||null}
 function getPid(){
   let p='';try{p=sessionStorage.getItem('nw-pid')||''}catch(e){}
@@ -918,9 +995,9 @@ async function joinRoom(code,name,role){
       renderRoom();
     });
     room.refs.pcb=players.on('value',snap=>{room.peers=snap.val()||{};onPeers()},err=>{room.msg='無法讀取房間，請檢查 Firebase 規則。';renderRoom()});
-    room.joined=true;room.busy=false;room.msg='';room.open=false;room.lastSent='';room.ghosts={};room.prev={};
+    room.joined=true;room.busy=false;room.msg='';side.open=false;side.view=(room.role==='player'&&!Object.keys(data.chars).length)?'manage':'players';room.lastSent='';room.ghosts={};room.prev={};
     try{sessionStorage.setItem('nw-room',JSON.stringify({code:code,name:name,role:room.role}))}catch(e){}
-    renderBar();renderRoom();renderChooser();
+    refreshAll();
   }catch(e){
     room.busy=false;room.joined=false;room.refs=null;
     room.msg='無法連線。請確認網路，以及 firebase-config.js 的設定。';
@@ -946,7 +1023,7 @@ function scheduleRoom(){if(!room.joined)return;clearTimeout(room.timer);room.tim
 async function leaveRoom(){
   const r=room.refs;
   clearTimeout(room.timer);
-  room.refs=null;room.joined=false;room.peers={};room.ghosts={};room.prev={};room.connected=false;room.msg='';room.lastSent='';viewing=null;viewSig='';
+  room.refs=null;room.joined=false;side.view=null;side.open=false;room.peers={};room.ghosts={};room.prev={};room.connected=false;room.msg='';room.lastSent='';viewing=null;viewSig='';
   try{sessionStorage.removeItem('nw-room')}catch(e){}
   refreshAll();
   if(r){
@@ -983,96 +1060,72 @@ function updateGhosts(){
   room.prev={};
   for(const pid in live)room.prev[pid]={name:live[pid].name,role:live[pid].role,t:live[pid].t,card:live[pid].card};
 }
+function tabIds(){
+  const out=[];
+  const live=room.peers||{};
+  const players=Object.keys(live).filter(k=>live[k].role!=='gm'&&k!==room.pid)
+    .sort((x,y)=>String(live[x].name).localeCompare(String(live[y].name),'zh-Hant'));
+  if(room.role==='player')out.push(room.pid);
+  players.forEach(k=>out.push(k));
+  Object.keys(room.ghosts).filter(k=>room.ghosts[k].card&&!live[k])
+    .sort((x,y)=>(room.ghosts[y].t||0)-(room.ghosts[x].t||0)).forEach(k=>out.push(k));
+  return out;
+}
+function ensureView(){
+  if(!(room.joined&&room.role==='gm'))return false;
+  const t=tabIds();
+  if(viewing&&t.includes(viewing))return false;
+  const n=t[0]||null;
+  if(n===viewing)return false;
+  viewing=n;viewSig=n?((entryOf(n)||{}).card||''):'';
+  return true;
+}
 function onPeers(){
   updateGhosts();
   scheduleRoom();
+  if(ensureView()){refreshAll();return}
   renderRoom();
   if(viewing){
     const p=entryOf(viewing);
-    if(!p||!p.card){viewing=null;viewSig='';refreshAll();return}
-    if(p.card!==viewSig){viewSig=p.card;renderSheet()}
+    if(!p){viewing=null;viewSig='';refreshAll();return}
+    const sig=p.card||'';
+    if(sig!==viewSig){viewSig=sig;renderSheet()}
     renderViewing();
   }
 }
 function viewPeer(pid){
   const p=entryOf(pid);
-  if(!p||!p.card)return;
-  viewing=pid;viewSig=p.card;confirmDel=false;showChooser=false;
-  refreshAll();window.scrollTo(0,0);
+  if(!p)return;
+  viewing=pid;viewSig=p.card||'';confirmDel=false;showChooser=false;
+  refreshAll();
 }
 function backToMine(){viewing=null;viewSig='';refreshAll()}
 
-function peerSummary(c){
-  const P=PB[c.pb],a=c.attrs;
-  const medal=P.medals.filter(k=>c.medals[k]).length;
-  const tr=c.trauma.lastIndexOf(true)+1;
-  const marks=c.marks.filter(Boolean).length;
-  return (c.name||'未命名')+'・'+P.zh+'・'+c.rank+'｜技巧'+fmt(a.skill)+' 運氣'+fmt(a.luck)+' 膽識'+fmt(a.guts)+' 勳章'+fmt(medal)+'｜創傷'+(tr?['','一','二','三','四'][tr]+'階':'無')+'｜烙印 '+marks;
-}
 function renderRoom(){
+  renderSync();renderSide();
   const el=$('#room');
-  if(!roomAvailable()){el.hidden=true;return}
-  if(!room.joined&&!room.open){el.hidden=true;return}
+  if(!gate()){el.hidden=true;return}
   el.hidden=false;el.textContent='';
-  if(!room.joined){
-    const f=room.form;
-    if(!f.name){const c=ownChar();if(c&&c.name)f.name=c.name}
-    const codeIn=h('input',{class:'t',id:'roomCode',type:'text',maxlength:'8',placeholder:'4 到 8 碼英數','aria-label':'房間代碼',value:f.code,oninput:e=>{f.code=e.target.value.toUpperCase();e.target.value=f.code}});
-    const nameIn=h('input',{class:'t',id:'roomName',type:'text',maxlength:'20',placeholder:'顯示名稱','aria-label':'顯示名稱',value:f.name,oninput:e=>{f.name=e.target.value}});
-    el.append(h('h2',{text:'加入房間'}),
-      h('p',{class:'hint',text:'同一個房間的人可以互相查看角色卡（唯讀）。有人離開時他的卡會留在房間裡；全員離開後，房間資料會全部刪除。'}),
-      h('div',{class:'rform'},
-        h('label',{class:'f'},'房間代碼',codeIn),
-        h('button',{type:'button',class:'btn',onclick:()=>{f.code=genCode();codeIn.value=f.code}},'產生新代碼'),
-        h('label',{class:'f'},'顯示名稱',nameIn)),
-      h('div',{class:'rankopts'},h('span',{class:'hint',text:'身分'}),
-        ['player','gm'].map(r=>h('label',{},h('input',{type:'radio',name:'roomRole',checked:f.role===r,onchange:()=>{f.role=r}}),r==='gm'?'GM（不分享角色卡）':'玩家（分享目前選擇的角色卡）'))),
-      h('div',{class:'row'},
-        h('button',{type:'button',class:'btn primary',disabled:room.busy,onclick:()=>joinRoom(f.code,f.name,f.role)},room.busy?'連線中…':'加入'),
-        h('button',{type:'button',class:'btn',onclick:()=>{room.open=false;room.msg='';renderRoom()}},'取消')),
-      room.msg?h('p',{class:'note warn',role:'alert',text:room.msg}):null,
-      h('p',{class:'hint',text:'你的角色卡仍然存在自己的裝置上。請記得用「儲存角色卡」下載備份，離開房間後，只要房間裡還有人，你的卡會暫時留給大家看；全員離開後就會消失。'}));
-    return;
-  }
-  const ids=Object.keys(room.peers).sort((a,b)=>{
-    const pa=room.peers[a],pb=room.peers[b];
-    if(pa.role!==pb.role)return pa.role==='gm'?-1:1;
-    return String(pa.name).localeCompare(String(pb.name),'zh-Hant');
-  });
-  const head=h('div',{class:'rhead'},
-    h('h2',{text:'房間 '+room.code}),
-    h('span',{class:'sync'+(room.connected?' ok':' warn')},room.connected?'已連線・'+ids.length+' 人':'重新連線中…'),
-    h('span',{class:'grow'}),
-    h('button',{type:'button',class:'btn',onclick:()=>{const t=room.code;try{navigator.clipboard.writeText(t).then(()=>toast('已複製房間代碼'),()=>toast('代碼：'+t))}catch(e){toast('代碼：'+t)}}},'複製代碼'),
-    h('button',{type:'button',class:'btn danger',onclick:leaveRoom},'離開房間'));
-  const list=h('ul',{class:'members'});
-  ids.forEach(id=>{
-    const p=room.peers[id];const me=id===room.pid;
-    const c=peerChar(p.card);
-    const nm=h('div',{class:'mname'},h('b',{text:p.name||'玩家'}),me?h('span',{class:'tag me',text:'你'}):null,p.role==='gm'?h('span',{class:'tag gm',text:'GM'}):null);
-    const line=h('div',{class:'msum'},c?peerSummary(c):(p.role==='gm'?'GM':'尚未選擇角色卡'));
-    const act=me?(viewing?h('button',{type:'button',class:'btn',onclick:backToMine},'我的角色卡'):null)
-      :(c?h('button',{type:'button',class:'btn'+(viewing===id?' primary':''),onclick:()=>viewPeer(id)},viewing===id?'檢視中':'查看'):null);
-    list.append(h('li',{class:'member'+(viewing===id?' on':'')},h('div',{class:'mtext'},nm,line),act));
-  });
-  Object.keys(room.ghosts).sort((a,b)=>(room.ghosts[b].t||0)-(room.ghosts[a].t||0)).forEach(id=>{
-    const p=room.ghosts[id];const c=peerChar(p.card);
-    if(!c)return;
-    list.append(h('li',{class:'member off'+(viewing===id?' on':'')},
-      h('div',{class:'mtext'},h('div',{class:'mname'},h('b',{text:p.name||'玩家'}),h('span',{class:'tag',text:'已離開'})),h('div',{class:'msum',text:peerSummary(c)})),
-      h('button',{type:'button',class:'btn'+(viewing===id?' primary':''),onclick:()=>viewPeer(id)},viewing===id?'檢視中':'查看')));
-  });
-  el.append(head,list);
-  if(room.msg)el.append(h('p',{class:'note warn',role:'alert',text:room.msg}));
-  el.append(h('p',{class:'hint',text:'有人離開時，他的角色卡會繼續留在房間裡給大家看；全員離開後，房間資料會全部刪除。請用「儲存角色卡」保存自己的角色。'}));
+  const f=room.form;
+  const codeIn=h('input',{class:'t',id:'roomCode',type:'text',maxlength:'8',placeholder:'4 到 8 碼英數','aria-label':'房間代碼',value:f.code,oninput:e=>{f.code=e.target.value.toUpperCase();e.target.value=f.code}});
+  const nameIn=h('input',{class:'t',id:'roomName',type:'text',maxlength:'20',placeholder:'顯示名稱','aria-label':'顯示名稱',value:f.name,oninput:e=>{f.name=e.target.value}});
+  el.append(...[h('h2',{text:'進入房間'}),
+    h('div',{class:'rform'},
+      h('label',{class:'f'},'房間代碼',codeIn),
+      h('button',{type:'button',class:'btn',onclick:()=>{f.code=genCode();codeIn.value=f.code}},'產生新代碼'),
+      h('label',{class:'f'},'顯示名稱',nameIn)),
+    h('div',{class:'rankopts'},h('span',{class:'hint',text:'身分'}),
+      ['player','gm'].map(r=>h('label',{},h('input',{type:'radio',name:'roomRole',checked:f.role===r,onchange:()=>{f.role=r}}),r==='gm'?'GM':'玩家'))),
+    h('div',{class:'row'},
+      h('button',{type:'button',class:'btn primary',disabled:room.busy,onclick:()=>joinRoom(f.code,f.name,f.role)},room.busy?'連線中…':'加入')),
+    room.msg?h('p',{class:'note warn',role:'alert',text:room.msg}):null].filter(Boolean));
 }
 function renderViewing(){
   const el=$('#viewing');
   if(!viewing){el.hidden=true;return}
-  const p=entryOf(viewing);const c=cur();const gone=!!(p&&!room.peers[viewing]);
+  const p=entryOf(viewing);const gone=!!(p&&!room.peers[viewing]);
   el.hidden=false;el.textContent='';
-  el.append(h('span',{text:'正在檢視 '+((p&&p.name)||'其他玩家')+' 的角色卡'+(c&&c.name?'：'+c.name:'')+(gone?'（已離開房間，卡片暫存中・唯讀）':'（唯讀）')}),
-    h('button',{type:'button',class:'btn',onclick:backToMine},'回到我的角色卡'));
+  el.append(h('span',{text:'唯讀：'+((p&&p.name)||'其他玩家')+' 的角色卡'+(gone?'（已離開房間，卡片暫存中）':'')}));
 }
 
 /* ================= 啟動 ================= */
