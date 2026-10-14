@@ -172,7 +172,8 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 /* move links + reference drawer */
 .mv{color:var(--green);font-weight:700;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:pointer;border-radius:2px}
 .mv:hover{background:var(--okbg)}
-.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;background:var(--btn);color:var(--btnink);border:0;border-radius:99px;padding:11px 20px;font-weight:700;font-size:.95rem;box-shadow:0 4px 16px rgba(30,40,30,.28);cursor:pointer}
+.fabs{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;display:flex;flex-direction:column;align-items:stretch;gap:8px}
+.fab{background:var(--btn);color:var(--btnink);border:0;border-radius:99px;padding:11px 20px;font-weight:700;font-size:.95rem;box-shadow:0 4px 16px rgba(30,40,30,.28);cursor:pointer}
 .mhost{display:flex;flex-direction:column;gap:8px}
 .mhead{display:flex;justify-content:flex-end;gap:8px}
 .mhead .acts{display:flex;gap:8px}
@@ -194,7 +195,8 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .side{display:none;position:fixed;z-index:25;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--card);border-left:3px solid var(--green);padding:12px;padding-top:calc(12px + env(safe-area-inset-top,0px));flex-direction:column;gap:10px;box-shadow:-10px 0 28px rgba(30,40,30,.22)}
 .side.open{display:flex}
 @media (max-width:600px){.side{border-left:0;border-top:3px solid var(--green);top:12vh;width:100%;border-radius:10px 10px 0 0}}
-.shead{display:flex;gap:8px;align-items:flex-start}
+.shead{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.stitle{font-family:var(--f-display);font-weight:900;font-size:1.35rem;color:var(--green)}
 .snav{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .sitem{background:var(--field);border:1px solid var(--line);border-radius:4px;padding:7px 8px;cursor:pointer;font-weight:500}
 .sitem[aria-current="true"]{background:var(--green);border-color:var(--green);color:var(--card);font-weight:700}
@@ -208,10 +210,25 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .mgrid .btn{width:100%;text-align:left}
 .mgrid label.sel{display:flex;flex-direction:column;gap:4px}
 .mgrid select{width:100%;background:var(--field);border:1px solid var(--line);border-radius:4px;padding:6px 8px}
+/* room */
+.roomcard{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.roomcard h2{font-family:var(--f-display);font-size:1.25rem;color:var(--green)}
+.tag{font-size:.72rem;font-weight:700;padding:0 8px;border-radius:99px;border:1px solid var(--line)}
+.tag.gm{background:var(--green);color:var(--card);border-color:transparent}
+.tag.me{background:var(--card)}
+.viewing{background:var(--warnbg);color:var(--warn);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:6px}
 body.gate .app{align-items:center;justify-content:center;min-height:calc(100vh - 84px)}
 body.gate .topbar{justify-content:center;text-align:center}
-body.gate .roomcard{width:min(100%,560px);align-items:center;text-align:center}
-body.gate .rform,body.gate .rankopts,body.gate .row{justify-content:center}
+body.gate .roomcard{width:min(100%,420px);padding:20px;gap:16px}
+body.gate .roomcard h2{text-align:center}
+.gform{display:flex;flex-direction:column;gap:12px}
+.gf{display:flex;flex-direction:column;gap:4px;font-size:.9rem;color:var(--muted)}
+.gf .line{display:flex;gap:8px}
+.gf .line input{flex:1 1 auto;min-width:0}
+.gf input.t{width:100%}
+body.gate .rankopts{justify-content:center}
+body.gate .row{display:flex}
+.btn.wide{width:100%;padding:9px 12px}
 
 /* print / printable export */
 @page{size:A4;margin:9mm}
@@ -219,7 +236,7 @@ body.gate .rform,body.gate .rankopts,body.gate .row{justify-content:center}
   :root:root:root{--bg:#fff;--card:#fff;--ink:#111;--muted:#444;--green:#2f5d3a;--rule:#3d5f34;--red:#a63a2e;--line:#999;--field:#fff;--plate:#fff;--img-filter:none;color-scheme:light}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{padding:0;font-size:11.5px;background:#fff}
-  .side,.topbar,.bar,.chooser,.roomcard,.viewing,.toast,.modal,.step,.apply,.picker,.fab,.mpanel,.no-print{display:none!important}
+  .side,.fabs,.topbar,.bar,.chooser,.roomcard,.viewing,.toast,.modal,.step,.apply,.picker,.fab,.mpanel,.no-print{display:none!important}
   .app{max-width:none;gap:0}
   fieldset.sheet{gap:0}
   .page{border:0;border-radius:0;padding:0;gap:12px;break-after:page;page-break-after:always}
@@ -250,7 +267,7 @@ body.print-view{padding:0}
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <div id="modalHost"></div>
-<button class="fab" id="menuBtn" type="button" hidden>選單</button>
+<div class="fabs" id="fabs" hidden></div>
 
 <script src="firebase-config.js"></script>
 <script>
@@ -479,22 +496,26 @@ function roomView(){
     h('button',{type:'button',class:'btn danger',onclick:leaveRoom},'離開房間'),
     room.msg?h('p',{class:'note warn',role:'alert',text:room.msg}):null);
 }
+function openView(k){
+  side.view=k;side.open=true;confirmDel=false;
+  if(k==='manage'&&viewing)backToMine();else renderSide();
+}
 function renderSide(){
-  const el=$('#side'),fab=$('#menuBtn');
-  if(gate()){el.hidden=true;fab.hidden=true;return}
-  el.hidden=false;fab.hidden=side.open;
+  const el=$('#side'),fabs=$('#fabs');
+  if(gate()){el.hidden=true;fabs.hidden=true;return}
   const av=sideViews();
   if(!av.includes(side.view))side.view=av[0];
   const v=side.view;
-  const old=$('#sbody');const st=old?old.scrollTop:0;
+  el.hidden=false;
   el.classList.toggle('open',side.open);
+  fabs.hidden=side.open;
+  fabs.textContent='';
+  av.forEach(k=>fabs.append(h('button',{type:'button',class:'fab',onclick:()=>{k==='moves'?openMoves():openView(k)}},SIDE_LABEL[k])));
+  const old=$('#sbody');const st=old?old.scrollTop:0;
   el.textContent='';
   el.append(h('div',{class:'shead'},
-    h('nav',{class:'snav','aria-label':'選單'},av.map(k=>h('button',{type:'button',class:'sitem','aria-current':k===v?'true':null,onclick:()=>{
-      side.view=k;confirmDel=false;
-      if(k==='manage'&&viewing){backToMine()}else renderSide();
-    }},SIDE_LABEL[k]))),
-    h('button',{type:'button',class:'btn sclose','aria-label':'關閉選單',onclick:()=>{closeSide();renderSide()}},'關閉')));
+    h('h2',{class:'stitle',text:SIDE_LABEL[v]}),
+    h('button',{type:'button',class:'btn sclose','aria-label':'關閉',onclick:()=>{closeSide();renderSide()}},'關閉')));
   const body=h('div',{class:'sbody',id:'sbody'},
     v==='players'?playersView():v==='moves'?movesView():v==='room'?roomView():manageView());
   el.append(body);
@@ -908,7 +929,6 @@ function openMoves(name){
   side.open=true;renderMoves(m?m[0]+m[1]:null);
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&side.open){side.open=false;renderSide()}});
-$('#menuBtn').addEventListener('click',()=>{side.open=true;renderSide()});
 
 /* ================= 房間（Firebase Realtime Database） ================= */
 /* 設定放在另一個小檔 firebase-config.js；沒有設定時，整個房間功能不會出現。 */
@@ -1078,22 +1098,21 @@ function renderRoom(){
   const codeIn=h('input',{class:'t',id:'roomCode',type:'text',maxlength:'8',placeholder:'4 到 8 碼英數','aria-label':'房間代碼',value:f.code,oninput:e=>{f.code=e.target.value.toUpperCase();e.target.value=f.code}});
   const nameIn=h('input',{class:'t',id:'roomName',type:'text',maxlength:'20',placeholder:'顯示名稱','aria-label':'顯示名稱',value:f.name,oninput:e=>{f.name=e.target.value}});
   el.append(...[h('h2',{text:'進入房間'}),
-    h('div',{class:'rform'},
-      h('label',{class:'f'},'房間代碼',codeIn),
-      h('button',{type:'button',class:'btn',onclick:()=>{f.code=genCode();codeIn.value=f.code}},'產生新代碼'),
-      h('label',{class:'f'},'顯示名稱',nameIn)),
+    h('div',{class:'gform'},
+      h('label',{class:'gf'},h('span',{text:'房間代碼'}),h('span',{class:'line'},codeIn,h('button',{type:'button',class:'btn',onclick:()=>{f.code=genCode();codeIn.value=f.code}},'產生新代碼'))),
+      h('label',{class:'gf'},h('span',{text:'顯示名稱'}),nameIn)),
     h('div',{class:'rankopts'},h('span',{class:'hint',text:'身分'}),
       ['player','gm'].map(r=>h('label',{},h('input',{type:'radio',name:'roomRole',checked:f.role===r,onchange:()=>{f.role=r}}),r==='gm'?'GM':'玩家'))),
     h('div',{class:'row'},
-      h('button',{type:'button',class:'btn primary',disabled:room.busy,onclick:()=>joinRoom(f.code,f.name,f.role)},room.busy?'連線中…':'加入')),
+      h('button',{type:'button',class:'btn primary wide',disabled:room.busy,onclick:()=>joinRoom(f.code,f.name,f.role)},room.busy?'連線中…':'加入')),
     room.msg?h('p',{class:'note warn',role:'alert',text:room.msg}):null].filter(Boolean));
 }
 function renderViewing(){
   const el=$('#viewing');
   if(!viewing){el.hidden=true;return}
-  const p=entryOf(viewing);const gone=!!(p&&!room.peers[viewing]);
+  const p=entryOf(viewing);
   el.hidden=false;el.textContent='';
-  el.append(h('span',{text:'唯讀：'+((p&&p.name)||'其他玩家')+' 的角色卡'+(gone?'（已離開房間，卡片暫存中）':'')}));
+  el.append(h('span',{text:((p&&p.name)||'其他玩家')+'的角色卡'}));
 }
 
 /* ================= 啟動 ================= */
