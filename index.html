@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>夜襲魔女角色卡</title>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>夜襲魔女</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&family=PT+Sans+Narrow:wght@700&display=swap" rel="stylesheet">
@@ -173,13 +173,14 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .mv{color:var(--green);font-weight:700;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:pointer;border-radius:2px}
 .mv:hover{background:var(--okbg)}
 .fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;background:var(--btn);color:var(--btnink);border:0;border-radius:99px;padding:11px 20px;font-weight:700;font-size:.95rem;box-shadow:0 4px 16px rgba(30,40,30,.28);cursor:pointer}
-.mhost{display:flex;flex-direction:column;gap:8px}
-.mhead{display:flex;justify-content:flex-end;gap:8px}
+.mpanel{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--card);border-left:3px solid var(--green);z-index:25;display:flex;flex-direction:column;box-shadow:-10px 0 28px rgba(30,40,30,.22)}
+.mhead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--line)}
+.mhead h2{font-family:var(--f-display);font-weight:900;font-size:1.35rem;color:var(--green)}
 .mhead .acts{display:flex;gap:8px}
-.mtabs{display:flex;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);z-index:1}
+.mtabs{display:flex;border-bottom:1px solid var(--line)}
 .mtab{flex:1;background:none;border:0;border-bottom:4px solid transparent;padding:9px 6px;font-weight:700;font-size:1rem;cursor:pointer;color:var(--muted)}
 .mtab[aria-selected="true"]{color:var(--gc);border-bottom-color:var(--gc)}
-.mlist{padding:4px 0 calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
+.mlist{overflow:auto;padding:12px 16px calc(28px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;min-height:0}
 .mcard{border:1px solid var(--line);border-left:6px solid var(--gc);border-radius:4px;background:var(--card)}
 .mtitle{width:100%;text-align:left;background:none;border:0;padding:8px 12px;cursor:pointer;display:flex;flex-direction:column;gap:0}
 .mtitle b{font-size:1.2rem;color:var(--gc);font-family:var(--f-display);font-weight:900}
@@ -190,6 +191,7 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .mbody li{position:relative;padding-left:1.1em}
 .mbody li::before{content:"";position:absolute;left:.1em;top:.62em;width:.5em;height:.5em;background:var(--gc)}
 
+@media (max-width:600px){.mpanel{border-left:0;border-top:3px solid var(--green);top:12vh;width:100%;border-radius:10px 10px 0 0}}
 /* side menu */
 .shell{display:flex;gap:20px;align-items:flex-start;max-width:1440px;margin-inline:auto}
 .shell>.app{flex:1 1 0;min-width:0;max-width:1000px;margin:0}
@@ -211,10 +213,13 @@ input[type=checkbox],input[type=radio]{accent-color:var(--green)}
 .mgrid select{width:100%;background:var(--field);border:1px solid var(--line);border-radius:4px;padding:6px 8px}
 @media (min-width:1000px){
   .side{display:flex;position:sticky;top:20px;z-index:1;flex:0 0 280px;width:280px;height:calc(100vh - 40px);border:1px solid var(--line);border-radius:6px;box-shadow:none;padding-top:12px}
-  .side.wide{flex-basis:360px;width:360px}
   .sclose,.fab{display:none}
 }
-@media (min-width:1200px){.side.wide{flex-basis:440px;width:440px}}
+body.gate .shell>.app{margin-inline:auto}
+body.gate .app{align-items:center;justify-content:center;min-height:calc(100vh - 84px)}
+body.gate .topbar{justify-content:center;text-align:center}
+body.gate .roomcard{width:min(100%,560px);align-items:center;text-align:center}
+body.gate .rform,body.gate .rankopts,body.gate .row{justify-content:center}
 
 
 /* room */
@@ -271,7 +276,7 @@ body.print-view{padding:0}
   <aside id="side" class="side" hidden></aside>
   <div class="app">
     <header class="topbar">
-      <div class="brand"><div class="ru">НОЧНЫЕ ВЕДЬМЫ</div><h1>夜襲魔女 角色卡</h1></div>
+      <div class="brand"><div class="ru">НОЧНЫЕ ВЕДЬМЫ</div><h1>夜襲魔女</h1></div>
       <div class="sync" id="sync" role="status" hidden></div>
     </header>
     <div id="room" class="roomcard" hidden></div>
@@ -283,6 +288,7 @@ body.print-view{padding:0}
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <div id="modalHost"></div>
 <button class="fab" id="menuBtn" type="button" hidden>選單</button>
+<aside class="mpanel" id="movePanel" role="dialog" aria-label="動作列表" hidden></aside>
 
 <script src="firebase-config.js"></script>
 <script>
@@ -464,8 +470,8 @@ function renderSync(){
 const side={open:false,view:null};
 const SIDE_LABEL={players:'玩家角色',moves:'動作列表',room:'房間設置',manage:'角色管理'};
 function sideViews(){
-  if(room.joined)return room.role==='player'?['players','moves','room','manage']:['players','moves','room'];
-  if(!roomAvailable())return ['moves','manage'];
+  if(room.joined)return room.role==='player'?['players','room','manage']:['players','room'];
+  if(!roomAvailable())return ['manage'];
   return [];
 }
 function closeSide(){side.open=false}
@@ -520,16 +526,16 @@ function renderSide(){
   const v=side.view;
   const old=$('#sbody');const st=old?old.scrollTop:0;
   el.classList.toggle('open',side.open);
-  el.classList.toggle('wide',v==='moves');
   el.textContent='';
   el.append(h('div',{class:'shead'},
-    h('nav',{class:'snav','aria-label':'選單'},av.map(k=>h('button',{type:'button',class:'sitem','aria-current':k===v?'true':null,onclick:()=>{
+    h('nav',{class:'snav','aria-label':'選單'},['players','moves','room','manage'].filter(k=>k==='moves'||av.includes(k)).map(k=>h('button',{type:'button',class:'sitem','aria-current':k===v&&k!=='moves'?'true':null,onclick:()=>{
+      if(k==='moves'){openMoves();return}
       side.view=k;confirmDel=false;
       if(k==='manage'&&viewing){backToMine()}else renderSide();
     }},SIDE_LABEL[k]))),
     h('button',{type:'button',class:'btn sclose','aria-label':'關閉選單',onclick:()=>{closeSide();renderSide()}},'關閉')));
   const body=h('div',{class:'sbody',id:'sbody'},
-    v==='players'?playersView():v==='moves'?movesView():v==='room'?roomView():manageView());
+    v==='players'?playersView():v==='room'?roomView():manageView());
   el.append(body);
   body.scrollTop=st;
 }
@@ -894,7 +900,7 @@ const MOVES=[
 ];
 const MOVE_BY_NAME={};
 MOVES.forEach(m=>{if(!MOVE_BY_NAME[m[1]])MOVE_BY_NAME[m[1]]=m});
-const moveUI={group:'day',expanded:{}};
+const moveUI={open:false,group:'day',expanded:{}};
 
 function mvLink(name){
   const go=()=>openMoves(name);
@@ -911,14 +917,19 @@ function linkify(text){
 function moveBlocks(blocks){
   return blocks.map(b=>b[0]==='ul'?h('ul',{},b[1].map(x=>h('li',{},linkify(x)))):h('p',{},linkify(b[1])));
 }
-function movesView(){
+function renderMoves(scrollKey){
+  const p=$('#movePanel');
+  if(!moveUI.open){p.hidden=true;return}
+  p.hidden=false;
+  p.textContent='';
   const gcol=(MOVE_GROUPS.find(g=>g[0]===moveUI.group)||MOVE_GROUPS[0])[2];
   const list=MOVES.filter(m=>m[0]===moveUI.group);
   const allOpen=list.every(m=>moveUI.expanded[m[0]+m[1]]);
-  const host=h('div',{class:'mhost'});
-  host.append(h('div',{class:'mhead'},
-    h('button',{type:'button',class:'btn',onclick:()=>{list.forEach(m=>{moveUI.expanded[m[0]+m[1]]=!allOpen});renderMoves()}},allOpen?'全部收合':'全部展開')));
-  host.append(h('div',{class:'mtabs',role:'tablist'},MOVE_GROUPS.map(g=>h('button',{type:'button',class:'mtab',role:'tab','aria-selected':moveUI.group===g[0]?'true':'false',style:'--gc:'+g[2],onclick:()=>{moveUI.group=g[0];renderMoves()}},g[1]))));
+  p.append(h('div',{class:'mhead'},h('h2',{text:'動作列表'}),
+    h('div',{class:'acts'},
+      h('button',{type:'button',class:'btn',onclick:()=>{list.forEach(m=>{moveUI.expanded[m[0]+m[1]]=!allOpen});renderMoves()}},allOpen?'全部收合':'全部展開'),
+      h('button',{type:'button',class:'btn',id:'mvClose','aria-label':'關閉動作列表',onclick:closeMoves},'關閉'))));
+  p.append(h('div',{class:'mtabs',role:'tablist'},MOVE_GROUPS.map(g=>h('button',{type:'button',class:'mtab',role:'tab','aria-selected':moveUI.group===g[0]?'true':'false',style:'--gc:'+g[2],onclick:()=>{moveUI.group=g[0];renderMoves()}},g[1]))));
   const box=h('div',{class:'mlist',id:'mlist',style:'--gc:'+gcol});
   list.forEach(m=>{
     const key=m[0]+m[1],open=!!moveUI.expanded[key];
@@ -927,20 +938,21 @@ function movesView(){
     if(open)card.append(h('div',{class:'mbody'},moveBlocks(m[4])));
     box.append(card);
   });
-  host.append(box);
-  return host;
-}
-function renderMoves(scrollKey){
-  side.view='moves';renderSide();
+  p.append(box);
   if(scrollKey){const el=$('#mv-'+scrollKey);if(el&&el.scrollIntoView)el.scrollIntoView({block:'nearest'})}
 }
 function openMoves(name){
   if(gate())return;
-  const m=name?MOVE_BY_NAME[name]:null;
-  if(m){moveUI.group=m[0];moveUI.expanded[m[0]+m[1]]=true}
-  side.open=true;renderMoves(m?m[0]+m[1]:null);
+  side.open=false;renderSide();
+  if(name){
+    const m=MOVE_BY_NAME[name];
+    if(m){moveUI.group=m[0];moveUI.expanded[m[0]+m[1]]=true}
+    moveUI.open=true;renderMoves(m?m[0]+m[1]:null);
+  }else{moveUI.open=true;renderMoves()}
+  const c=$('#mvClose');if(c&&!name)c.focus();
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&side.open){side.open=false;renderSide()}});
+function closeMoves(){moveUI.open=false;renderMoves();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(moveUI.open)closeMoves();else if(side.open){side.open=false;renderSide()}}});
 $('#menuBtn').addEventListener('click',()=>{side.open=true;renderSide()});
 
 /* ================= 房間（Firebase Realtime Database） ================= */
@@ -1104,6 +1116,7 @@ function backToMine(){viewing=null;viewSig='';refreshAll()}
 function renderRoom(){
   renderSync();renderSide();
   const el=$('#room');
+  document.body.classList.toggle('gate',gate());
   if(!gate()){el.hidden=true;return}
   el.hidden=false;el.textContent='';
   const f=room.form;
